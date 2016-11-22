@@ -8,8 +8,8 @@ app = Flask(__name__)
 #Configure MySQL
 conn = pymysql.connect(host='localhost',
                        user='root',
-                       password='root',
-                       db='meetup3',
+                       password='7183596771',
+                       db='simple',
                        charset='utf8mb4',
                        cursorclass=pymysql.cursors.DictCursor)
 
@@ -114,4 +114,4 @@ app.secret_key = 'some key that you will never guess'
 #debug = True -> you don't have to restart flask
 #for changes to go through, TURN OFF FOR PRODUCTION
 if __name__ == "__main__":
-	app.run('127.0.0.1', 5000, debug = True)
+	app.run('localhost', 5000, debug = False)
