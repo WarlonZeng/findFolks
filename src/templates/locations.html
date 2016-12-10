@@ -1,0 +1,44 @@
+<html>
+<head>
+</head>
+<body>
+
+<h1>Welcome {{username}}</h1> 
+
+<a href="/home">Home</a>
+<a href="/logout">Logout</a>
+
+<h2><u>Establish a location</u></h2>
+
+<form action="/createLocation" method="POST">
+	<input type="text" name = "location_name" placeholder="location name" required autofocus /> </br>
+	<input type="text" name = "description" placeholder="location description" required /> </br>
+	<input type="text" name = "address" placeholder="address" required /> </br>
+	<input type="number" name = "latitude" placeholder="latitude" required /> </br>
+	<input type="number" name = "longitude" placeholder="longitude" required /> </br>
+	<input type="number" name = "zipcode" placeholder="zipcode" required /> </br>
+	<input type="submit" value = submit />
+</form>
+
+<style type="text/css"> table, th, td{ border: 1px solid black; } </style>
+
+<h2><u>Locations used previously</u></h2>
+
+<table>
+{% for line in locations %}
+	<tr>
+		<td>{{line.location_name}}</td>
+		<td>{{line.description}}</td>
+		<td>{{line.address}}</td>
+		<td>{{line.zipcode}}</td>
+		<td>{{line.latitude}}</td>
+		<td>{{line.longitude}}</td>
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+</body>
+
+
+</html>

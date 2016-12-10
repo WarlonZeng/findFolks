@@ -1,0 +1,129 @@
+<html>
+<head>
+</head>
+<body>
+
+<h1>Welcome {{username}}</h1> 
+
+<a href="/home">Home</a>
+<a href="/logout">Logout</a>
+
+<style type="text/css"> table, th, td{ border: 1px solid black; } </style>
+
+<h2><u>Click to create an event for that group</u></h2>
+ 
+<table>
+{% for line in authorizedGroups %}
+	<tr>
+		<td>{{line.group_id}}</td>
+		<td href="/events/{{line.category}}/{{line.keyword}}/{{line.group_name}}">{{line.group_name}}</td>
+		<td>{{line.description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
+		<td>{{line.creator}}</td>
+		<td>{{line.authorized}}</td>
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+<h2><u>Your upcoming events</u></h2>
+ 
+<table>
+{% for line in userGroupsSuggestions %}
+	<tr>
+		<td>{{line.group_id}}</td>
+		<td>{{line.group_name}}</td>
+		<td>{{line.description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
+		<td>{{line.creator}}</td>
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+<h2><u>Your friends' upcoming events</u></h2>
+ 
+<table>
+{% for line in userGroupsSuggestions %}
+	<tr>
+		<td>{{line.group_id}}</td>
+		<td>{{line.group_name}}</td>
+		<td>{{line.description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
+		<td>{{line.creator}}</td>
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+<h2><u>Upcoming events you might be interested in</u></h2>
+ 
+<table>
+{% for line in userGroupsSuggestions %}
+	<tr>
+		<td>{{line.group_id}}</td>
+		<td>{{line.group_name}}</td>
+		<td>{{line.description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
+		<td>{{line.creator}}</td>
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+<h2><u>Other upcoming events</u></h2>
+ 
+<table>
+{% for line in userGroupsSuggestions %}
+	<tr>
+		<td>{{line.group_id}}</td>
+		<td>{{line.group_name}}</td>
+		<td>{{line.description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
+		<td>{{line.creator}}</td>
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+<h2><u>Your past events</u></h2>
+ 
+<table>
+{% for line in userGroupsSuggestions %}
+	<tr>
+		<td>{{line.group_id}}</td>
+		<td>{{line.group_name}}</td>
+		<td>{{line.description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
+		<td>{{line.creator}}</td>
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+<h2><u>Other past events</u></h2>
+ 
+<table>
+{% for line in userGroupsSuggestions %}
+	<tr>
+		<td>{{line.group_id}}</td>
+		<td>{{line.group_name}}</td>
+		<td>{{line.description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
+		<td>{{line.creator}}</td>
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+</body>
+
+
+</html>
