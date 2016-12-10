@@ -129,15 +129,17 @@ def interests():
 	username = session['username']
 	cursor = conn.cursor();
 
+	# your interests
 	userInterests = 'SELECT * FROM interested_in WHERE username = %s'
 	cursor.execute(userInterests, (username))
 	userInterestsData = cursor.fetchall()
 
-	# common category, exclude from belonging to interest already
+	# interests other people have that you might be interested in
 	userInterestsSuggestions = 'SELECT category, keyword FROM interest WHERE (category, keyword) NOT IN (SELECT category, keyword FROM interested_in WHERE (username = %s)) AND category IN (SELECT category FROM interested_in WHERE (username = %s))'
 	cursor.execute(userInterestsSuggestions, (username, username))
 	userInterestsSuggestionsData = cursor.fetchall()
 
+	# interests you might not be interested in but you may want to check out anyway
 	otherInterests = 'SELECT category, keyword FROM interest WHERE (category, keyword) NOT IN (SELECT category, keyword FROM interested_in WHERE (username = %s)) AND category NOT IN (SELECT category FROM interested_in WHERE (username = %s))'
 	cursor.execute(otherInterests, (username, username))
 	otherInterestsData = cursor.fetchall()
@@ -151,15 +153,17 @@ def groups():
 	username = session['username']
 	cursor = conn.cursor();
 
+	# groups you are in
 	userGroups = 'SELECT group_id, group_name, description, category, keyword, creator, authorized FROM a_group NATURAL JOIN about NATURAL JOIN belongs_to WHERE (username = %s)'
 	cursor.execute(userGroups, (username))
 	userGroupsData = cursor.fetchall()
 
-	# common category, exclude from belonging to group already
+	# groups that you might be interested in
 	userGroupsSuggestions = 'SELECT category, keyword, group_id, group_name, description, creator FROM a_group NATURAL JOIN about NATURAL JOIN interested_in WHERE category IN (SELECT category FROM interested_in WHERE (username = %s)) AND group_id NOT IN (SELECT group_id FROM belongs_to WHERE (username = %s))'
 	cursor.execute(userGroupsSuggestions, (username, username))
 	userGroupsSuggestionsData = cursor.fetchall()
 
+	# groups that you might not be interested in but you may want to check out anyway
 	otherGroups = 'SELECT category, keyword, group_id, group_name, description, creator FROM a_group NATURAL JOIN about NATURAL JOIN interested_in WHERE category NOT IN (SELECT category FROM interested_in WHERE (username = %s)) AND group_id NOT IN (SELECT group_id FROM belongs_to WHERE (username = %s))'
 	cursor.execute(otherGroups, (username, username))
 	otherGroupsData = cursor.fetchall()
@@ -173,6 +177,7 @@ def locations():
 	username = session['username']
 	cursor = conn.cursor();
 
+	# all previously established locations
 	locations = 'SELECT * FROM location'
 	cursor.execute(locations)
 	locationsData = cursor.fetchall()
@@ -186,29 +191,52 @@ def events():
 	username = session['username']
 	cursor = conn.cursor();
 
+	# all previously established locations
+	locations = 'SELECT * FROM location'
+	cursor.execute(locations)
+	locationsData = cursor.fetchall()
+
+	# groups you can make events for
 	authorizedGroups = 'SELECT group_id, group_name, description, category, keyword, creator, authorized FROM a_group NATURAL JOIN about NATURAL JOIN belongs_to WHERE (username = %s AND authorized = true)'
 	cursor.execute(authorizedGroups, (username))
 	authorizedGroupsData = cursor.fetchall()
 
-	userUpcomingEvents = 'SELECT * FROM sign_up WHERE (username = %s)'
+	# upcoming events you signed up for
+	userUpcomingEvents = 'SELECT * FROM sign_up NATURAL JOIN an_event WHERE (username = %s) AND (start_time > NOW())'
 	cursor.execute(userUpcomingEvents, (username))
 	userUpcomingEventsData = cursor.fetchall()
 
-	friendsUpcomingEvents = 'SELECT * FROM an_event NATURAL JOIN organize NATURAL JOIN sign_up WHERE username IN (SELECT friend_of FROM friend WHERE (friend_to = %s) AND friend_of IN (SELECT friend_to FROM friend WHERE (friend_of = %s))) AND start_time > NOW()'
+	# upcoming events your friends signed up for
+	friendsUpcomingEvents = 'SELECT * FROM an_event NATURAL JOIN organize NATURAL JOIN sign_up WHERE username IN (SELECT friend_of FROM friend WHERE (friend_to = %s) AND friend_of IN (SELECT friend_to FROM friend WHERE (friend_of = %s))) AND (start_time > NOW())'
 	cursor.execute(friendsUpcomingEvents, (username))
 	friendsUpcomingEventsData = cursor.fetchall()
 
-	userGroupsSuggestions = 'SELECT category, keyword, group_id, group_name, description, creator FROM a_group NATURAL JOIN about NATURAL JOIN interested_in WHERE category IN (SELECT category FROM interested_in WHERE (username = %s)) AND group_id NOT IN (SELECT group_id FROM belongs_to WHERE (username = %s))'
-	cursor.execute(userGroupsSuggestions, (username, username))
-	userGroupsSuggestionsData = cursor.fetchall()
+	# upcoming events you might be interested in
+	userUpcomingEventsSuggestions = 'SELECT * FROM an_event NATURAL JOIN organize NATURAL JOIN sign_up NATURAL JOIN about WHERE (category) IN (SELECT category FROM interested_in WHERE (username = %s)) AND (username != %s) AND (start_time > NOW())'
+	cursor.execute(userUpcomingEventsSuggestions, (username, username))
+	userUpcomingEventsSuggestionsData = cursor.fetchall()
 
-	otherGroups = 'SELECT category, keyword, group_id, group_name, description, creator FROM a_group NATURAL JOIN about NATURAL JOIN interested_in WHERE category NOT IN (SELECT category FROM interested_in WHERE (username = %s)) AND group_id NOT IN (SELECT group_id FROM belongs_to WHERE (username = %s))'
-	cursor.execute(otherGroups, (username, username))
-	otherGroupsData = cursor.fetchall()
+	# upcoming events you might not be interested in but you may want to check out anyway
+	otherUpcomingEvents = 'SELECT * FROM an_event NATURAL JOIN organize NATURAL JOIN sign_up NATURAL JOIN about WHERE (category) NOT IN (SELECT category FROM interested_in WHERE (username = %s)) AND (username != %s) AND (start_time > NOW())'
+	cursor.execute(otherUpcomingEvents, (username, username))
+	otherUpcomingEventsData = cursor.fetchall()
 
 	cursor.close()
-	return render_template('events.html', username = username, authorizedGroups = authorizedGroupsData, userUpcomingEvents = userUpcomingEventsData, userGroupsSuggestions = userGroupsSuggestionsData, otherGroups = otherGroupsData)
+	return render_template('events.html', username = username, locations = locationsData, authorizedGroups = authorizedGroupsData, userUpcomingEvents = userUpcomingEventsData, userUpcomingEventsSuggestions = userUpcomingEventsSuggestionsData, otherUpcomingEvents = otherUpcomingEventsData)
 
+
+@app.route('/createEvent/<category>/<keyword>/<group_name>/<group_id>')
+def createEvents(category, keyword, group_name, group_id):
+	username = session['username']
+	cursor = conn.cursor();
+
+	# all previously established locations
+	locations = 'SELECT * FROM location'
+	cursor.execute(locations)
+	locationsData = cursor.fetchall()
+
+	cursor.close()
+	return render_template('locations.html', username = username, locations = locationsData)
 
 
 # ============================================================================================
@@ -343,45 +371,39 @@ def createLocation():
 
 
 # method to create event
-@app.route('/createEvent', methods=['GET', 'POST'])
-def createEvent():
-	group_id = session['group_id']
+@app.route('/createEvent/<category>/<keyword>/<group_name>/<group_id>', methods=['GET', 'POST'])
+def createEvent(category, keyword, group_name, group_id):
+	username = session['username']
 	cursor = conn.cursor();
 
+	title = request.form['title']
+	event_description = request.form['event_description']
+	start_time = request.form['start_time']
+	end_time = request.form['end_time']
+
+	event_location = request.form['event_location']
+	event_zipcode = request.form['event_zipcode']
+
 	location_name = request.form['location_name']
-	description = request.form['description']
+	location_zipcode = request.form['location_zipcode']
+	location_description = request.form['location_description']
 	address = request.form['address']
 	latitude = request.form['latitude']
 	longitude = request.form['longitude']
-	zipcode = request.form['zipcode']
 
 
-	INSERT INTO an_event(title, description, location_name, start_time, end_time, zipcode) VALUES('sharit project', 'finish pls', 'NYU Poly', NOW() + INTERVAL 1 DAY, NOW() + INTERVAL 2 DAY, 11201)
+	createEvent = 'INSERT INTO an_event(title, description, start_time, end_time, location_name, zipcode) VALUES(%s, %s, %s, %s, %s, %s); INSERT INTO sign_up(event_id, username) VALUES(LAST_INSERT_ID(), %s); INSERT INTO organize(event_id, group_id) VALUES(LAST_INSERT_ID(), %s)'
+	cursor.execute(createEvent, (title, event_description, start_time, end_time, event_location, event_zipcode, username, group_id))
 
-	createLocation = 'INSERT INTO location(location_name, description, address, latitude, longitude, zipcode) VALUES(%s, %s, %s, %s, %s, %s)'
-	cursor.execute(createLocation, (location_name, description, address, int(latitude), int(longitude), int(zipcode)))
+	createEventNewLocation = 'INSERT INTO location(location_name, description, address, latitude, longitude, zipcode) VALUES(%s, %s, %s, %s, %s, %s); INSERT INTO an_event(title, description, start_time, end_time, location_name, zipcode) VALUES(%s, %s, %s, %s, %s, %s); INSERT INTO sign_up(event_id, username) VALUES(LAST_INSERT_ID(), %s); INSERT INTO organize(event_id, group_id) VALUES(LAST_INSERT_ID(), %s)'
+	cursor.execute(createEvent, (location_name, location_description, address, latitude, longitude, location_zipcode, title, event_description, start_time, end_time, location_event, location_zipcode, username, group_id))
 
 	conn.commit()
 	cursor.close()
 	return redirect(url_for('events'))
 
-	INSERT INTO organize(event_id, group_id) SELECT 7, group_id FROM a_group NATURAL JOIN about WHERE (category = 'cs' AND keyword = 'webdev')
+	# INSERT INTO organize(event_id, group_id) SELECT 7, group_id FROM a_group NATURAL JOIN about WHERE (category = 'cs' AND keyword = 'webdev')
 
-
-# method to organize
-@app.route('/organize', methods=['GET', 'POST'])
-def organize():
-	cursor = conn.cursor();
-
-	username = request.form['username']
-	group_id = request.form['group_id']
-	authorized = False
-
-	query = 'INSERT INTO belongs_to(username, group_id) VALUES(%s, %i, %s)'
-	cursor.execute(query, (username, group_id, authorized))
-	conn.commit()
-	cursor.close()
-	return redirect(url_for('home'))
 
 # method to logout
 @app.route('/logout', methods=['GET', 'POST'])

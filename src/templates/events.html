@@ -16,7 +16,7 @@
 {% for line in authorizedGroups %}
 	<tr>
 		<td>{{line.group_id}}</td>
-		<td href="/events/{{line.category}}/{{line.keyword}}/{{line.group_name}}">{{line.group_name}}</td>
+		<td href="/createEvent/{{line.category}}/{{line.keyword}}/{{line.group_name}/{{line.group_id}}}">{{line.group_name}}</td>
 		<td>{{line.description}}</td>
 		<td>{{line.category}}</td>
 		<td>{{line.keyword}}</td>
