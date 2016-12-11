@@ -10,6 +10,8 @@ findFolks web app done in python-flask with MySQL as db.
 
 Project done alone; db, frontend, backend, etc., all of it.
 
+---
+
 MIT License
 
 Copyright (c) 2016 Warlon Zeng
