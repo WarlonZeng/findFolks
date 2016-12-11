@@ -1,33 +1,56 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
 </head>
 
 <body>
-{% if not message %}
-	<a href="/login">Login</a>
-	<a href="/register">Register</a>
-{% endif %}
 
-{% if message %}
-	<a href="/logout">Logout</a>
-	<a href="/remove_account">Remove Account</a>
-	<p class="message">You are logged in {{message}}. You have {{num}} follower(s)</p> </br>
-	<a href="/tweets">View your tweets</a> </br>
-	<a href="/find_people">Find people to follow</a> </br>
-	<a href="/unfollow">Unfollow someone</a> </br>
-	<a href="/view_followed">View people you have followed</a> </br>
-	</br>
+<a href="/login">Login</a>
+<a href="/register">Register</a>
 
-        <h4>15 most recent tweets from you and your followers </h4> </br>
+<style type="text/css"> table, th, td{ border: 1px solid black; } </style>
 
-	{% for line in tweets%}
-	        <p>{{line}}</p>
-	        <hr>
-	{% endfor %}
-	{% endif %}
+<h2><u>Upcoming events in 3 days</u></h2>
+
+<table>
+{% for line in upcomingEvents %}
+	<tr>
+		<td> EVENT INFO --> </td>
+		<td>{{line.event_id}}</td>
+		<td>{{line.title}}</td>
+		<td>{{line.event_description}}</td>
+		<td>{{line.start_time}}</td>
+		<td>{{line.end_time}}</td>
+		<td>{{line.location_name}}</td>
+		<td>{{line.zipcode}}</td>
+		<td> <-- EVENT INFO </td>
+
+		<td> GROUP INFO --> </td>
+		<td>{{line.group_id}}</td>
+		<td>{{line.group_name}}</td>
+		<td>{{line.group_description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
+		<td> <-- GROUP INFO </td>
+
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+<table>
+{% for line in allInterests %}
+	<tr>
+		<td> INTERESTS --> </td>
+		<td><a href="/viewInterestGroup/{{line.category}}/{{line.keyword}}">{{line.category}}</td>
+		<td><a href="/viewInterestGroup/{{line.category}}/{{line.keyword}}">{{line.keyword}}</td>
+		<td> <-- INTERESTS </td>
+
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
 </body>
 
 </html>

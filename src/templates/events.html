@@ -1,5 +1,8 @@
 <html>
 <head>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js" ></script>
 </head>
 <body>
 
@@ -15,13 +18,15 @@
 <table>
 {% for line in authorizedGroups %}
 	<tr>
-		<td>{{line.group_id}}</td>
-		<td href="/createEvent/{{line.category}}/{{line.keyword}}/{{line.group_name}/{{line.group_id}}}">{{line.group_name}}</td>
-		<td>{{line.description}}</td>
-		<td>{{line.category}}</td>
-		<td>{{line.keyword}}</td>
-		<td>{{line.creator}}</td>
-		<td>{{line.authorized}}</td>
+		<td> GROUPS INFO --> </td>
+		<td><a href="/createEvent/{{line.category}}/{{line.keyword}}/{{line.group_name}}/{{line.group_id}}"> {{line.group_id}} </a></td>
+		<td><a href="/createEvent/{{line.category}}/{{line.keyword}}/{{line.group_name}}/{{line.group_id}}"> {{line.group_name}} </a></td>
+		<td><a href="/createEvent/{{line.category}}/{{line.keyword}}/{{line.group_name}}/{{line.group_id}}"> {{line.description}} </a></td>
+		<td><a href="/createEvent/{{line.category}}/{{line.keyword}}/{{line.group_name}}/{{line.group_id}}"> {{line.category}} </a></td>
+		<td><a href="/createEvent/{{line.category}}/{{line.keyword}}/{{line.group_name}}/{{line.group_id}}"> {{line.keyword}} </a></td>
+		<td><a href="/createEvent/{{line.category}}/{{line.keyword}}/{{line.group_name}}/{{line.group_id}}"> {{line.creator}} </a></td>
+		<td><a href="/createEvent/{{line.category}}/{{line.keyword}}/{{line.group_name}}/{{line.group_id}}"> {{line.authorized}} </a></td>
+		<td> <-- GROUPS INFO </td>
 		<br>
 	</tr>
 {% endfor %}
@@ -30,14 +35,26 @@
 <h2><u>Your upcoming events</u></h2>
  
 <table>
-{% for line in userGroupsSuggestions %}
+{% for line in userUpcomingEvents %}
 	<tr>
+		<td> EVENTS INFO --> </td>
+		<td>{{line.event_id}}</td>
+		<td>{{line.title}}</td>
+		<td>{{line.event_description}}</td>
+		<td>{{line.start_time}}</td>
+		<td>{{line.end_time}}</td>
+		<td>{{line.location_name}}</td>
+		<td>{{line.zipcode}}</td>
+		<td> <-- EVENTS INFO </td>
+
+		<td> GROUPS INFO --> </td>
 		<td>{{line.group_id}}</td>
 		<td>{{line.group_name}}</td>
-		<td>{{line.description}}</td>
+		<td>{{line.group_description}}</td>
 		<td>{{line.category}}</td>
 		<td>{{line.keyword}}</td>
-		<td>{{line.creator}}</td>
+		<td> <-- GROUPS INFO </td>
+
 		<br>
 	</tr>
 {% endfor %}
@@ -46,14 +63,27 @@
 <h2><u>Your friends' upcoming events</u></h2>
  
 <table>
-{% for line in userGroupsSuggestions %}
+{% for line in friendsUpcomingEvents %}
 	<tr>
-		<td>{{line.group_id}}</td>
-		<td>{{line.group_name}}</td>
-		<td>{{line.description}}</td>
-		<td>{{line.category}}</td>
-		<td>{{line.keyword}}</td>
-		<td>{{line.creator}}</td>
+		<td> EVENTS INFO --> </td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.event_id}} </a></td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.title}} </a></td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.event_description}} </a></td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.start_time}} </a></td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.end_time}} </a></td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.location_name}} </a></td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.zipcode}} </a></td>
+		<td> <-- EVENTS INFO </td>
+
+		<td> GROUPS INFO --> </td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.group_id}} </a></td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.group_name}} </a></td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.group_description}} </a></td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.category}} </a></td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.keyword}} </a></td>
+		<td><a href="/sign_up/{{line.event_id}}"> {{line.username}} </a></td>
+		<td> <-- GROUPS INFO </td>
+
 		<br>
 	</tr>
 {% endfor %}
@@ -62,14 +92,26 @@
 <h2><u>Upcoming events you might be interested in</u></h2>
  
 <table>
-{% for line in userGroupsSuggestions %}
+{% for line in userUpcomingEventsSuggestions %}
 	<tr>
-		<td>{{line.group_id}}</td>
-		<td>{{line.group_name}}</td>
-		<td>{{line.description}}</td>
-		<td>{{line.category}}</td>
-		<td>{{line.keyword}}</td>
-		<td>{{line.creator}}</td>
+		<td> EVENTS INFO --> </td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.event_id}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.title}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.event_description}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.start_time}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.end_time}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.location_name}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.zipcode}}</a></td>
+		<td> <-- EVENTS INFO </td>
+
+		<td> GROUPS INFO --> </td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.group_id}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.group_name}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.group_description}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.category}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.keyword}}</a></td>
+		<td> <-- GROUPS INFO </td>
+
 		<br>
 	</tr>
 {% endfor %}
@@ -78,14 +120,26 @@
 <h2><u>Other upcoming events</u></h2>
  
 <table>
-{% for line in userGroupsSuggestions %}
+{% for line in otherUpcomingEvents %}
 	<tr>
-		<td>{{line.group_id}}</td>
-		<td>{{line.group_name}}</td>
-		<td>{{line.description}}</td>
-		<td>{{line.category}}</td>
-		<td>{{line.keyword}}</td>
-		<td>{{line.creator}}</td>
+		<td> EVENTS INFO --> </td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.event_id}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.title}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.event_description}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.start_time}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.end_time}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.location_name}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.zipcode}}</a></td>
+		<td> <-- EVENTS INFO </td>
+
+		<td> GROUPS INFO --> </td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.group_id}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.group_name}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.group_description}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.category}}</a></td>
+		<td><a href="/sign_up/{{line.event_id}}">{{line.keyword}}</a></td>
+		<td> <-- GROUPS INFO </td>
+
 		<br>
 	</tr>
 {% endfor %}
@@ -94,14 +148,58 @@
 <h2><u>Your past events</u></h2>
  
 <table>
-{% for line in userGroupsSuggestions %}
+{% for line in userPastEvents %}
 	<tr>
+		<td> EVENTS INFO --> </td>
+		<td>{{line.event_id}}</td>
+		<td>{{line.title}}</td>
+		<td>{{line.event_description}}</td>
+		<td>{{line.start_time}}</td>
+		<td>{{line.end_time}}</td>
+		<td>{{line.location_name}}</td>
+		<td>{{line.zipcode}}</td>
+		<td> <-- EVENTS INFO </td>
+
+		<td> GROUPS INFO --> </td>
 		<td>{{line.group_id}}</td>
 		<td>{{line.group_name}}</td>
-		<td>{{line.description}}</td>
+		<td>{{line.group_description}}</td>
 		<td>{{line.category}}</td>
 		<td>{{line.keyword}}</td>
-		<td>{{line.creator}}</td>
+		<td> <-- GROUPS INFO </td>
+
+		<td> YOUR RATINGS --> </td>
+		{% if line.your_rating >= 1 %}
+		<td><a href="/rate/{{line.event_id}}/1"><span class="glyphicon glyphicon-star"></span></a></td>
+		{% else %}
+		<td><a href="/rate/{{line.event_id}}/1"><span class="glyphicon glyphicon-star-empty"></span></a></td>
+		{% endif %}
+
+		{% if line.your_rating >= 2 %}
+		<td><a href="/rate/{{line.event_id}}/2"><span class="glyphicon glyphicon-star"></span></a></td>
+		{% else %}
+		<td><a href="/rate/{{line.event_id}}/2"><span class="glyphicon glyphicon-star-empty"></span></a></td>
+		{% endif %}
+
+		{% if line.your_rating >= 3 %}
+		<td><a href="/rate/{{line.event_id}}/3"><span class="glyphicon glyphicon-star"></span></a></td>
+		{% else %}
+		<td><a href="/rate/{{line.event_id}}/3"><span class="glyphicon glyphicon-star-empty"></span></a></td>
+		{% endif %}
+
+		{% if line.your_rating >= 4 %}
+		<td><a href="/rate/{{line.event_id}}/4"><span class="glyphicon glyphicon-star"></span></a></td>
+		{% else %}
+		<td><a href="/rate/{{line.event_id}}/4"><span class="glyphicon glyphicon-star-empty"></span></a></td>
+		{% endif %}
+
+		{% if line.your_rating >= 5 %}
+		<td><a href="/rate/{{line.event_id}}/5"><span class="glyphicon glyphicon-star"></span></a></td>
+		{% else %}
+		<td><a href="/rate/{{line.event_id}}/5"><span class="glyphicon glyphicon-star-empty"></span></a></td>
+		{% endif %}
+		<td> <-- YOUR RATINGS </td>
+
 		<br>
 	</tr>
 {% endfor %}
@@ -110,14 +208,91 @@
 <h2><u>Other past events</u></h2>
  
 <table>
-{% for line in userGroupsSuggestions %}
+{% for line in otherPastEvents %}
 	<tr>
+		<td> EVENTS INFO --> </td>
+		<td>{{line.event_id}}</td>
+		<td>{{line.title}}</td>
+		<td>{{line.event_description}}</td>
+		<td>{{line.start_time}}</td>
+		<td>{{line.end_time}}</td>
+		<td>{{line.location_name}}</td>
+		<td>{{line.zipcode}}</td>
+		<td> <-- EVENTS INFO </td>
+
+		<td> GROUPS INFO --> </td>
 		<td>{{line.group_id}}</td>
 		<td>{{line.group_name}}</td>
-		<td>{{line.description}}</td>
+		<td>{{line.group_description}}</td>
 		<td>{{line.category}}</td>
 		<td>{{line.keyword}}</td>
-		<td>{{line.creator}}</td>
+		<td> <-- GROUPS INFO </td>
+
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+<h2><u>Ratings for past events that you are part of the group</u></h2>
+
+<table>
+{% for line in userPastEventsRatings %}
+	<tr>
+		<td> EVENTS INFO --> </td>
+		<td>{{line.event_id}}</td>
+		<td>{{line.title}}</td>
+		<td>{{line.event_description}}</td>
+		<td>{{line.start_time}}</td>
+		<td>{{line.end_time}}</td>
+		<td>{{line.location_name}}</td>
+		<td>{{line.zipcode}}</td>
+		<td> <-- EVENTS INFO </td>
+
+		<td> GROUPS INFO --> </td>
+		<td>{{line.group_id}}</td>
+		<td>{{line.group_name}}</td>
+		<td>{{line.group_description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
+		<td> <-- GROUPS INFO </td>
+
+		<td> AVG RATINGS --> </td>
+		<td>{{line.avg_rating}}</td>
+		<td> <-- AVG RATINGS </td>
+
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+<h2><u>Ratings for other events you are not part of the group/u></h2>
+
+<table>
+{% for line in otherPastEventsRatings %}
+	<tr>
+
+		<td> EVENTS INFO --> </td>
+		<td>{{line.event_id}}</td>
+		<td>{{line.title}}</td>
+		<td>{{line.event_description}}</td>
+		<td>{{line.start_time}}</td>
+		<td>{{line.end_time}}</td>
+		<td>{{line.location_name}}</td>
+		<td>{{line.zipcode}}</td>
+		<td> <-- EVENTS INFO </td>
+		
+		<td> GROUPS INFO --> </td>
+		<td>{{line.group_id}}</td>
+		<td>{{line.group_name}}</td>
+		<td>{{line.group_description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
+		<td> <-- GROUPS INFO </td>
+
+		<td> AVG RATINGS --> </td>
+		<td>{{line.avg_rating}}</td>
+		<td> <-- AVG RATINGS </td>
+
 		<br>
 	</tr>
 {% endfor %}

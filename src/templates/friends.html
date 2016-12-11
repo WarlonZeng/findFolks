@@ -5,6 +5,9 @@
 
 <h1>Welcome {{username}}</h1> 
 
+<a href="/home">Home</a>
+<a href="/logout">Logout</a>
+
 <h2><u>Send a friend request</u></h2>
 
 <form action="/makeFriend" method="POST">
@@ -19,7 +22,10 @@
 <table>
 {% for line in unverifiedFriends %}
 	<tr>
+		<td> UNVERIFIED FRIENDS --> </td>
 		<a href="/verifyFriend/{{line.friend_of}}">{{line.friend_of}}</a>
+		<td> <-- UNVERIFIED FRIENDS </td>
+
 		<br>
 	</tr>
 {% endfor %}
@@ -30,7 +36,10 @@
 <table>
 {% for line in friends %}
 	<tr>
-		<a>{{line.friend_of}}</a>
+		<td> FRIENDS --> </td>
+		<td>{{line.friend_of}}</td>
+		<td> <-- FRIENDS </td>
+
 		<br>
 	</tr>
 {% endfor %}
@@ -41,15 +50,14 @@
 <table>
 {% for line in notFriends %}
 	<tr>
+		<td> COMMUNITY MEMBERS --> </td>
 		<a>{{line.username}}</a>
+		<td> <-- COMMUNITY MEMBERS </td>
+
 		<br>
 	</tr>
 {% endfor %}
 </table>
-
-<br>
-<a href="/home">Home</a>
-<a href="/logout">Logout</a>
 
 </body>
 

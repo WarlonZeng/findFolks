@@ -32,6 +32,7 @@
 <table>
 {% for line in userGroups %}
 	<tr>
+		<td> GROUPS --> </td>
 		<td>{{line.group_id}}</td>
 		<td>{{line.group_name}}</td>
 		<td>{{line.description}}</td>
@@ -39,6 +40,8 @@
 		<td>{{line.keyword}}</td>
 		<td>{{line.creator}}</td>
 		<td>{{line.authorized}}</td>
+		<td> <-- GROUPS </td>
+
 		<br>
 	</tr>
 {% endfor %}
@@ -49,12 +52,15 @@
 <table>
 {% for line in userGroupsSuggestions %}
 	<tr>
+		<td> GROUPS --> </td>
 		<td>{{line.group_id}}</td>
 		<td>{{line.group_name}}</td>
 		<td>{{line.description}}</td>
 		<td>{{line.category}}</td>
 		<td>{{line.keyword}}</td>
 		<td>{{line.creator}}</td>
+		<td> <-- GROUPS </td>
+
 		<br>
 	</tr>
 {% endfor %}
@@ -65,12 +71,15 @@
 <table>
 {% for line in otherGroups %}
 	<tr>
+		<td> GROUPS --> </td>
 		<td>{{line.group_id}}</td>
 		<td>{{line.group_name}}</td>
 		<td>{{line.description}}</td>
 		<td>{{line.category}}</td>
 		<td>{{line.keyword}}</td>
 		<td>{{line.creator}}</td>
+		<td> <-- GROUPS </td>
+		
 		<br>
 	</tr>
 {% endfor %}

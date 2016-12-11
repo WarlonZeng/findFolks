@@ -13,23 +13,59 @@
 <br>
 <a href="/interests">Go to interests</a>
 <br>
+<a href="/groups">Go to groups</a>
+<br>
 <a href="/locations">Go to locations</a>
 <br>
 <a href="/events">Go to events</a>
-<br>
-<a href="/friends">Go to friends</a>
 <br>
 
 
 <style type="text/css"> table, th, td{ border: 1px solid black; } </style>
 
+<h2><u>Your groups</u></h2>
+ 
 <table>
-{% for line in groups %}
+{% for line in userGroups %}
 	<tr>
+		<td> GROUPS INFO --> </td>
 		<td>{{line.group_id}}</td>
 		<td>{{line.group_name}}</td>
 		<td>{{line.description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
 		<td>{{line.creator}}</td>
+		<td>{{line.authorized}}</td>
+		<td> <-- GROUPS INFO </td>
+		
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+<h2><u>Your upcoming events</u></h2>
+ 
+<table>
+{% for line in userUpcomingEvents %}
+	<tr>
+		<td> EVENTS INFO --> </td>
+		<td>{{line.event_id}}</td>
+		<td>{{line.title}}</td>
+		<td>{{line.event_description}}</td>
+		<td>{{line.start_time}}</td>
+		<td>{{line.end_time}}</td>
+		<td>{{line.location_name}}</td>
+		<td>{{line.zipcode}}</td>
+		<td> <-- EVENTS INFO </td>
+
+		<td> GROUPS INFO --> </td>
+		<td>{{line.group_id}}</td>
+		<td>{{line.group_name}}</td>
+		<td>{{line.group_description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
+		<td> <-- GROUPS INFO </td>
+
 		<br>
 	</tr>
 {% endfor %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+
+<a href="/login">Login</a>
+<a href="/register">Register</a>
+<a href="/">Index</a>
+
+<style type="text/css"> table, th, td{ border: 1px solid black; } </style>
+
+<h2><u>Groups of interest</u></h2>
+
+<table>
+{% for line in interestGroup %}
+	<tr>
+
+		<td> GROUPS INFO --> </td>
+		<td>{{line.group_id}}</td>
+		<td>{{line.group_name}}</td>
+		<td>{{line.group_description}}</td>
+		<td>{{line.category}}</td>
+		<td>{{line.keyword}}</td>
+		<td>{{line.creator}}</td>
+		<td> <-- GROUPS INFO </td>
+
+		<br>
+	</tr>
+{% endfor %}
+</table>
+
+</body>
+
+</html>
